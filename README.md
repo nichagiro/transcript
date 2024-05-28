@@ -15,6 +15,6 @@ El archivo de configuracion se encuentra en la carpeta public/ie7 es un archivo 
 
 #### Requisitos
 
-- vincular el script en el html4 correspondien te:  <script src= "http://coimbandev05/siam/siamplus/Transcripcion/ie7.js"></script>
+- vincular el script en el html4 correspondien te:  <script src= "http://coimbandev05/siam/SiamPlus/Scripts/pack-react/Transcripcion/ie7.js"></script>
 - un input con el valor del loginName: <input value="NC2506" id="IdUsuario" />
 - un elemento clickleable como el boton, especificamente con el id *btn-transcription* <button id="btn-transcription" class="siamButton">Transcribir</button>
