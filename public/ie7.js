@@ -1,6 +1,6 @@
 var action = 0;
 var nameButton = "";
-var server = window.location.origin;
+var server = "http://" + window.location.host;
 var idButton = "btn-transcription";
 var userNameField = document.getElementById("IdUsuario");
 
@@ -40,7 +40,7 @@ function handleData() {
   };
 
   xhr.onerror = function () {
-    console.log("Error en la conexión");
+    alert.log("Error en la conexión");
   };
 
   xhr.send(JSON.stringify({ loginName: userNameField.value }));
