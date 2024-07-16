@@ -17,6 +17,13 @@ function App() {
   const { startRecording, stopRecording, recording, data } = useSpeechRecognition();
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const value = urlParams.get("login");   
+    setUser(value ?? "");
+  }, [])
 
   useEffect(() => {
     const text = value.concat(data)
@@ -28,7 +35,7 @@ function App() {
   const onSave = async () => {
     setLoading(true);
     stopRecording();
-    await create(value);
+    await create(value, user);
     setLoading(false);
   }
 
