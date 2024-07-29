@@ -1,4 +1,4 @@
-const Microphone = ({ className = "size-6" }) => {
+const MicrophoneIcon = ({ className = "size-6" }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M8.25 4.5a3.75 3.75 0 1 1 7.5 0v8.25a3.75 3.75 0 1 1-7.5 0V4.5Z" />
@@ -7,5 +7,5 @@ const Microphone = ({ className = "size-6" }) => {
   )
 }
 
-export default Microphone
+export default MicrophoneIcon
 

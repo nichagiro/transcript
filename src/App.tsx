@@ -5,13 +5,16 @@ import { useState, useEffect, useMemo } from "react"
 // components
 import { Button } from "@nextui-org/button"
 import { Textarea } from "@nextui-org/input"
-
-// icons
-import Microphone from "./icons/Microphone"
-import Send from "./icons/Send"
 import Layout from "./components/Layout"
 import Panel from "./components/Panel"
+
+// icons
+import SendIcon from "./icons/SendIcon"
+import MicrophoneIcon from "./icons/MicrophoneIcon"
+
+// apis
 import create from "./apis/create"
+import StopIcon from "./icons/StopIcon"
 
 function App() {
   const { startRecording, stopRecording, recording, data } = useSpeechRecognition();
@@ -21,7 +24,7 @@ function App() {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const value = urlParams.get("login");   
+    const value = urlParams.get("login");
     setUser(value ?? "");
   }, [])
 
@@ -46,7 +49,7 @@ function App() {
           <div className="gap-5 w-full flex justify-center">
             <Button
               color="danger"
-              startContent={<Microphone />}
+              startContent={recording ? <StopIcon /> : <MicrophoneIcon />}
               isDisabled={loading}
               onClick={() => recording ? stopRecording() : startRecording()}
             >
@@ -55,7 +58,7 @@ function App() {
 
             <Button
               color="danger"
-              startContent={<Send />}
+              startContent={<SendIcon />}
               isDisabled={!value || isInvalidField}
               isLoading={loading}
               onClick={() => onSave()}
