@@ -1,4 +1,8 @@
-const {nextui} = require('@nextui-org/theme');
+/* eslint-disable no-undef */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { nextui } = require('@nextui-org/theme');
+
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -9,5 +13,16 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [nextui()],
+  plugins: [nextui({
+    themes: {
+      light: {
+        colors: {
+          primary: {
+            foreground: "white",
+            DEFAULT: "#00B2A9"
+          }
+        },
+      },
+    }
+  })],
 }
