@@ -1,6 +1,6 @@
 // hooks
 import useSpeechRecognition from "./hooks/useSpeechRecognition"
-import { useState, useEffect, useMemo, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 
 // components
 import { Button } from "@nextui-org/button"
@@ -10,42 +10,28 @@ import Panel from "./components/Panel"
 import { Tooltip } from "@nextui-org/tooltip";
 
 // icons
-import SendIcon from "./icons/SendIcon"
 import MicrophoneIcon from "./icons/MicrophoneIcon"
 import StopIcon from "./icons/StopIcon"
 import TrashIcon from "./icons/TrashIcon"
-
-// apis
-import create from "./apis/create"
 import CopyIcon from "./icons/CopyIcon"
+import CloseIcon from "./icons/CloseIcon"
 
 function App() {
   const { startRecording, stopRecording, recording, data } = useSpeechRecognition();
   const [value, setValue] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState("");
   const [toltip, setToltip] = useState(false);
   const input = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const value = urlParams.get("login");
-    setUser(value ?? "");
-  }, [])
+  const description = useMemo(
+    () =>
+      value.length ? `${value.length} caracteres` : "",
+    [value]
+  )
 
   useEffect(() => {
     const text = value.concat(data)
     setValue(text)
   }, [data])
-
-  const isInvalidField = useMemo(() => value.length > 5000, [value])
-
-  const onSave = async () => {
-    setLoading(true);
-    stopRecording();
-    await create(value, user);
-    setLoading(false);
-  }
 
   const onCopy = async () => {
     const value = input.current?.value ?? "";
@@ -64,7 +50,6 @@ function App() {
             <Button
               color={recording ? "warning" : "danger"}
               startContent={recording ? <StopIcon /> : <MicrophoneIcon />}
-              isDisabled={loading}
               onClick={() => recording ? stopRecording() : startRecording()}
             >
               {recording ? "Pausar" : "Grabar"}
@@ -80,7 +65,7 @@ function App() {
             <Tooltip
               isOpen={toltip}
               content="Copiado"
-              classNames={{content:"p-2"}}
+              classNames={{ content: "p-2" }}
               color="danger"
               isDisabled={recording}
             >
@@ -95,26 +80,22 @@ function App() {
             </Tooltip>
             <Button
               color="danger"
-              startContent={<SendIcon />}
-              isDisabled={!value || isInvalidField}
-              isLoading={loading}
-              onClick={() => onSave()}
+              startContent={<CloseIcon />}
+              onClick={() => window.close()}
             >
-              Guardar
+              Salir
             </Button>
           </div>
           <Textarea
-            variant="bordered"            
+            variant="bordered"
             classNames={{
               base: "max-w-screen-lg py-5",
               input: "min-h-[300px]",
-            }}            
-            color="primary"            
+            }}
+            color="primary"
             value={value}
             onValueChange={setValue}
-            disabled={loading}
-            errorMessage={`${value.length} caracteres de 5000 permitidos.`}
-            isInvalid={isInvalidField}
+            description={description}
             ref={input}
           />
         </section>
