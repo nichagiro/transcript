@@ -12,11 +12,18 @@ const useSpeechRecognition = () => {
     const recognitionInstance = new SpeechRecord();
 
     recognitionInstance.continuous = true;
-    recognitionInstance.lang = 'es';
+    recognitionInstance.lang = 'es-CO';
 
     recognitionInstance.onresult = ({ results }) => {
-      const text = results[results.length - 1][0].transcript;
-      setData(text);
+      const { transcript } = results[results.length - 1][0];
+      const { userAgent } = window.navigator;
+
+      if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) {
+        setData(transcript);
+      } else {
+        const text = results.length === 1 ? transcript : ` ${transcript}`
+        setData(text);
+      }
     };
 
     recognitionInstance.onerror = (event) => {
