@@ -25,5 +25,3 @@ dist-ssr
 
 # firebse
 .firebase
-.firebaserc
-.firebase.json
