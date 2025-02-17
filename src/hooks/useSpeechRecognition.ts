@@ -27,7 +27,7 @@ const useSpeechRecognition = () => {
     };
 
     recognitionInstance.onerror = (event) => {
-      console.error('Error en el reconocimiento de voz:', event.error);
+      console.error('Error en el reconocimiento de voz:', event);
       setRecording(false);
       setError(event);
       recognitionInstance.abort();
